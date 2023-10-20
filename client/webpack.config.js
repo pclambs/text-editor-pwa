@@ -14,10 +14,22 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    devServer: {
+      static: {
+        directory: path.join(__dirname, 'dist'),
+      },
+      compress: true,
+      port: 8080,
+      open: true,
+      historyApiFallback: true,
+    },
     plugins: [
       new InjectManifest({
         swSrc: './src/sw.js',
         swDest: 'sw.js'
+      }),
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
       }),
       new WebpackPwaManifest({
         name: 'Text Editor PWA',
